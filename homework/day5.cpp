@@ -1,12 +1,5 @@
-/*
-* File   : LinkList.cpp  *
-* Author : jiahao        *
-* Date   : 2022-6-11     *
-*/
-
 #include<stdio.h>
 #include<stdlib.h>
-
 
 typedef int ElemType;
 typedef struct LNode
@@ -16,14 +9,24 @@ typedef struct LNode
 
 }LNode, *LinkList;
 
+void PrintList(LinkList L)
 
-void PrintList(LinkList L){
-	L = L->next;
-	while(L!=NULL){
-		printf("%3d",L->data);
-		L = L->next;
-	}
-	printf("\n");
+{
+
+L = L->next;
+
+while (L != NULL)
+
+{
+
+printf("%3d", L->data);//打印当前结点数据
+
+L = L->next;//指向下一个结点
+
+}
+
+printf("\n");
+
 }
 //头插法建立单链表
 LinkList List_HeadInsert(LinkList &L) {
@@ -47,11 +50,13 @@ LinkList List_TailInsert(LinkList& L) {
 	int x;
 	L = (LinkList)malloc(sizeof(LNode));
 	LNode* s, * r = L;
-	while (scanf("%d",&x)!=EOF) {
+    scanf("%d",&x);
+	while (x!=9999) {
 		s = (LinkList)malloc(sizeof(LNode));
 		s->data = x;
 		r->next = s;
 		r = s;
+        scanf("%d",&x);
 	}
 	r->next = NULL;//尾节点指针置空
 	return L;
@@ -71,22 +76,12 @@ LNode* GetElem(LinkList L, int i) {
 	}
 	return p;
 }
-
-//按值查找节点表，不考虑存在相同值的情况
-LNode* LocateElem(LinkList L, int e) {
-	LNode* p = L->next;
-	while (p != NULL && p->data != e) {
-		p = p->next;
-	}
-	return p;
-}
-
 //插入节点操作
 void InsertNode(LinkList& L, int i) {
 	LNode* s = (LNode*)malloc(sizeof(LNode));
-	int x;
+	int x = 99;
 	LNode* p = GetElem(L, i - 1);
-	scanf("%d", &x);
+	//scanf("%d", &x);
 	s->data = x;
 	s->next = p->next;
 	p->next = s;
@@ -103,25 +98,13 @@ bool DeleteNode(LinkList &L,int i){
 	q = NULL; //将q赋值为NULL，避免其成为野指针
 	return true;
 }
-
-//求表长
-int getLength(LinkList L) {
-	int i = 0;
-	LNode* s = L;
-	while (s) {
-		s = s->next;
-		i++;
-	}
-	return i;
-}
-
-
-int main() {
-	LinkList L;
-	List_HeadInsert(L);
-	PrintList(L);
-	InsertNode(L,3);
-	PrintList(L);
-	printf("%d", getLength(L));
-	return 0;
+int main(){
+    LinkList L;
+    List_TailInsert(L);
+    printf("%d\n",GetElem(L,2)->data);
+    InsertNode(L,2);
+    PrintList(L);
+    DeleteNode(L,4);
+    PrintList(L);
+    return 0;
 }
