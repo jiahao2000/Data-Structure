@@ -15,6 +15,7 @@ void InsertSort(ElemType A[], int n){
 }
 
 // 折半插入排序
+// 折半插入排序是稳定的
 void InsertSort2(ElemType A[], int n){
     int i, j, low, high, mid;
     for(i = 2; i<=n; i++){
@@ -32,4 +33,22 @@ void InsertSort2(ElemType A[], int n){
             A[high+1] = A[0];
         }
     } 
+}
+
+// 希尔排序
+// 将表里的元素拆分为多个子表，对每个子表进行直接插入排序
+// 希尔排序不稳定
+// 只能基于顺序表实现，因为需要进行随机访问
+
+void ShellSort(ElemType A[], int n){
+    int d, i, j;
+    for(d = n/2;d>=1;d = d/2){
+        for(i = d+1; i<=n;++i){//i++实际上是在交替的处理不同子表中的元素
+            A[0] = A[i];
+            for(j = i - d; j>0&&A[0]<A[j];j-=d){
+                A[j+d] = A[j];
+            }
+            A[j+d] = A[0];
+        }
+    }
 }
